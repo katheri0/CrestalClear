@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Scanner</title>
+
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f7f7f7;
+            color: #222;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+            width: 320px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #111;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Document Scanner</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            <label for="pdf_name">PDF file name</label>
+            <input
+                type="text"
+                id="pdf_name"
+                name="pdf_name"
+                placeholder="document"
+                required
+            >
+
+            <label for="images">Document images</label>
+            <input
+                type="file"
+                id="images"
+                name="images"
+                multiple
+                accept="image/*"
+                required
+            >
+
+            <button type="submit">Create PDF</button>
+        </form>
+    </div>
+</body>
+</html>
