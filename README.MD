@@ -5,8 +5,11 @@ best for pictures of notes and books (documents in general)
 
 CrestalClear/
 │    ├──templates/
-│    │      ├──upload.html
-│    │ 
+│    │      └──upload.html
+│    │
+│    ├──static/
+│    │      └──assets/(images)
+│    │
 │    ├── binarization.py (disabled)
 │    ├── correctionIllumination.py
 │    ├── geometricNormalization.py
