@@ -7,8 +7,8 @@ def deskewDocumentImage(documentImage: np.ndarray) -> np.ndarray:
     else:
         grayscaleImage = documentImage.copy()
 
-    edges = cv2.Canny(grayscaleImage, 50, 150)
-    lines = cv2.HoughLines(edges, 1, np.pi / 180, 200)
+    edges = cv2.Canny(grayscaleImage, 0, 200)
+    lines = cv2.HoughLines(edges, 1, np.pi / 180, 150)
 
     if lines is None:
         return documentImage
@@ -34,5 +34,5 @@ def deskewDocumentImage(documentImage: np.ndarray) -> np.ndarray:
         matrix,
         (w, h),
         flags=cv2.INTER_NEAREST,
-        borderValue=255
+        borderValue=200
     )

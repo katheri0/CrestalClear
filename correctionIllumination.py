@@ -26,10 +26,10 @@ def normalizeDocumentIllumination(
     )
 
     # Avoid division by zero
-    normalizedImage = grayscaleFloat / (backgroundEstimate + 1.0)
+    normalizedImage = grayscaleFloat / (backgroundEstimate + 2.0)
 
     normalizedImage = cv2.normalize(
-        normalizedImage, None, 0, 255, cv2.NORM_MINMAX
+        normalizedImage, None, 0, 205, cv2.NORM_MINMAX
     )
 
     return normalizedImage.astype(np.uint8)

@@ -4,7 +4,7 @@ import numpy as np
 def binarizeDocumentImage(
     grayscaleImage: np.ndarray,
     windowSize: int = 25,
-    k: float = 0.2
+    k: float = 0.25
 ) -> np.ndarray:
     """
     Convert a grayscale document image into a binary image using
