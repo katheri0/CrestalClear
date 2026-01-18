@@ -16,3 +16,4 @@ CrestalClear/
 │    ├── geometricNormalization.py
 │    └── noiseReduction.py
 ```
+issue : not suitable for all images. I need to fix this.
