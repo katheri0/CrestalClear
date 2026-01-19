@@ -16,7 +16,7 @@
             align-items: center;
             gap: 16px;
             margin-top: 160px;
-            
+
 
         }
 
@@ -68,9 +68,26 @@
         input[type="file"] {
             width: 100%;
             margin-bottom: 16px;
+            color: black;
 
         }
 
+        .input {
+            border: 1px solid #000;
+            background-color: #ffe8c4;
+            padding: 5px;
+            border-radius: 10px;
+            color: #f7f7f7;
+
+        }
+
+        ::file-selector-button {
+            border: 1px solid #000000;
+            border-radius: 10px;
+            padding: 5px;
+
+
+        }
 
         button {
             width: 100%;
@@ -140,7 +157,7 @@
             <input type="text" id="pdf_name" name="pdf_name" placeholder="document" required>
 
             <label for="images">Document images</label>
-            <input class="input" type="file" id="images" name="images" multiple accept="image/*" required>
+            <input class="input tex-in" type="file" id="images" name="images" multiple accept="image/*" required>
 
             <button type="submit">Create PDF</button>
         </form>
