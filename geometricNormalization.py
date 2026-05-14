@@ -17,7 +17,12 @@ def deskewDocumentImage(documentImage: np.ndarray) -> np.ndarray:
     for line in lines:
         _, theta = line[0]
         angle = (theta - np.pi / 2) * 180 / np.pi
-        angles.append(angle)
+        # Only consider near-horizontal lines
+        if -15.0 <= angle <= 15.0:
+            angles.append(angle)
+
+    if not angles:
+        return documentImage
 
     medianAngle = np.median(angles)
 
@@ -34,5 +39,5 @@ def deskewDocumentImage(documentImage: np.ndarray) -> np.ndarray:
         matrix,
         (w, h),
         flags=cv2.INTER_NEAREST,
-        borderValue=200
+        borderValue=(255, 255, 255)
     )

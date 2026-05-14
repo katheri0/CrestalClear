@@ -25,6 +25,9 @@ def binarizeDocumentImage(
         Binary image with text as white (255) and background as black (0).
     """
 
+    if windowSize % 2 == 0:
+        windowSize += 1
+
     if grayscaleImage.ndim != 2:
         raise ValueError("binarizeDocumentImage expects a grayscale image")
 

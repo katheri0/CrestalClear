@@ -12,6 +12,7 @@ def reduceDocumentNoise(documentImage: np.ndarray) -> np.ndarray:
     else:
         grayscaleImage = documentImage.copy()
 
-    denoisedImage = cv2.medianBlur(grayscaleImage, ksize=3)
+    # Non-local means preserves text edges better than median blur
+    denoisedImage = cv2.fastNlMeansDenoising(grayscaleImage, None, h=10, templateWindowSize=7, searchWindowSize=21)
 
     return denoisedImage
