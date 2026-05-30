@@ -8,13 +8,15 @@ import re
 from correctionIllumination import normalizeDocumentIllumination
 from noiseReduction import reduceDocumentNoise
 from binarization import binarizeDocumentImage
+from geometricNormalization import deskewDocumentImage
 
 
 app = Flask(__name__)
 
 
 def processSingleDocumentImage(documentImage: np.ndarray) -> np.ndarray:
-    normalizedImage = normalizeDocumentIllumination(documentImage)
+    deskewedImage = deskewDocumentImage(documentImage)
+    normalizedImage = normalizeDocumentIllumination(deskewedImage)
     denoisedImage = reduceDocumentNoise(normalizedImage)
     binaryImage = binarizeDocumentImage(denoisedImage)
     return binaryImage

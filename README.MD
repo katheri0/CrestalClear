@@ -11,9 +11,9 @@ CrestalClear/
 │    ├──static/
 │    │      └──assets/(images)
 │    │
-│    ├── binarization.py (disabled)
+│    ├── binarization.py (enabled)
 │    ├── correctionIllumination.py
 │    ├── geometricNormalization.py
 │    └── noiseReduction.py
 ```
-issue : not suitable for all images. I need to fix this.
+Issue fixed: Now suitable for all images with dynamic parameter scaling, advanced geometric normalization, and smoothed binarization.

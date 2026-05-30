@@ -3,12 +3,13 @@ import numpy as np
 
 def binarizeDocumentImage(
     grayscaleImage: np.ndarray,
-    windowSize: int = 25,
+    windowSize: int = None,
     k: float = 0.25
 ) -> np.ndarray:
     """
     Convert a grayscale document image into a binary image using
-    Sauvola adaptive thresholding.
+    Sauvola adaptive thresholding, with dynamic window sizing
+    and slight smoothing.
 
     Parameters
     ----------
@@ -22,14 +23,19 @@ def binarizeDocumentImage(
     Returns
     -------
     np.ndarray
-        Binary image with text as white (255) and background as black (0).
+        Slightly smoothed binary image.
     """
-
-    if windowSize % 2 == 0:
-        windowSize += 1
 
     if grayscaleImage.ndim != 2:
         raise ValueError("binarizeDocumentImage expects a grayscale image")
+
+    if windowSize is None:
+        h, w = grayscaleImage.shape
+        # ~2.5% of max dimension is a good default for Sauvola window
+        windowSize = max(11, int(max(h, w) * 0.025))
+
+    if windowSize % 2 == 0:
+        windowSize += 1
 
     # Normalize to float for numerical stability
     normalizedImage = grayscaleImage.astype(np.float32)
@@ -58,4 +64,7 @@ def binarizeDocumentImage(
         normalizedImage > dynamicThreshold, 255, 0
     ).astype(np.uint8)
 
-    return binaryImage
+    # Apply slight smoothing (anti-aliasing) to the hard binary output
+    smoothedBinary = cv2.GaussianBlur(binaryImage, (3, 3), 0)
+
+    return smoothedBinary

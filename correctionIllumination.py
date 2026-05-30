@@ -3,7 +3,7 @@ import numpy as np
 
 def normalizeDocumentIllumination(
     documentImage: np.ndarray,
-    kernelSize: int = 75
+    kernelSize: int = None
 ) -> np.ndarray:
     """
     Normalize uneven illumination using CLAHE for local contrast 
@@ -25,6 +25,11 @@ def normalizeDocumentIllumination(
 
     # 2. Downscale for faster morphological operations and larger effective kernel
     h, w = grayscaleFloat.shape
+    
+    if kernelSize is None:
+        # Dynamic kernel size: ~7.5% of max dimension
+        kernelSize = max(3, int(max(h, w) * 0.075))
+        
     scale = 0.25
     smallImg = cv2.resize(grayscaleFloat, (int(w * scale), int(h * scale)))
     
