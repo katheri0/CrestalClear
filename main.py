@@ -4,6 +4,7 @@ import numpy as np
 from PIL import Image
 import io
 import re
+import concurrent.futures
 
 from correctionIllumination import normalizeDocumentIllumination
 from noiseReduction import reduceDocumentNoise
@@ -60,17 +61,24 @@ def uploadImages():
         rawPdfName = request.form.get("pdf_name", "")
         safePdfName = sanitizeFilename(rawPdfName)
 
-        processedImages: list[np.ndarray] = []
+        file_bytes_list = []
+        for uf in uploadedFiles:
+            b = uf.read()
+            if b:
+                file_bytes_list.append(b)
 
-        for uploadedFile in uploadedFiles:
-            fileBytes = np.frombuffer(uploadedFile.read(), np.uint8)
+        def decode_and_process(fileBytesRaw):
+            fileBytes = np.frombuffer(fileBytesRaw, np.uint8)
             documentImage = cv2.imdecode(fileBytes, cv2.IMREAD_COLOR)
-
             if documentImage is None:
-                continue
+                return None
+            return processSingleDocumentImage(documentImage)
 
-            processedImage = processSingleDocumentImage(documentImage)
-            processedImages.append(processedImage)
+        processedImages: list[np.ndarray] = []
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            results = list(executor.map(decode_and_process, file_bytes_list))
+            
+        processedImages = [img for img in results if img is not None]
 
         if not processedImages:
             return "No valid images uploaded", 400
