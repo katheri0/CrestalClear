@@ -54,6 +54,25 @@ def sanitizeFilename(rawFilename: str) -> str:
     return cleanedFilename
 
 
+def decode_and_process(fileBytesRaw):
+    fileBytes = np.frombuffer(fileBytesRaw, np.uint8)
+    documentImage = cv2.imdecode(fileBytes, cv2.IMREAD_COLOR)
+    if documentImage is None:
+        return None
+
+    # Cap image resolution to a maximum of 2500 pixels on the longest side
+    max_allowed_dim = 2500
+    h, w = documentImage.shape[:2]
+    if max(h, w) > max_allowed_dim:
+        scale = max_allowed_dim / max(h, w)
+        new_w = int(w * scale)
+        new_h = int(h * scale)
+        documentImage = cv2.resize(
+            documentImage, (new_w, new_h), interpolation=cv2.INTER_AREA)
+
+    return processSingleDocumentImage(documentImage)
+
+
 @app.route("/", methods=["GET", "POST"])
 def uploadImages():
     if request.method == "POST":
@@ -67,17 +86,10 @@ def uploadImages():
             if b:
                 file_bytes_list.append(b)
 
-        def decode_and_process(fileBytesRaw):
-            fileBytes = np.frombuffer(fileBytesRaw, np.uint8)
-            documentImage = cv2.imdecode(fileBytes, cv2.IMREAD_COLOR)
-            if documentImage is None:
-                return None
-            return processSingleDocumentImage(documentImage)
-
         processedImages: list[np.ndarray] = []
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        with concurrent.futures.ProcessPoolExecutor() as executor:
             results = list(executor.map(decode_and_process, file_bytes_list))
-            
+
         processedImages = [img for img in results if img is not None]
 
         if not processedImages:
