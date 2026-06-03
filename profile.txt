@@ -1,0 +1,28 @@
+         203 function calls in 2.508 seconds
+
+   Ordered by: cumulative time
+   List reduced from 41 to 20 due to restriction <20>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.008    0.008    2.508    2.508 D:\do_projects\Github-K0\CrestalClear\main.py:18(processSingleDocumentImage)
+        1    0.000    0.000    2.356    2.356 D:\do_projects\Github-K0\CrestalClear\noiseReduction.py:5(reduceDocumentNoise)
+        1    2.355    2.355    2.355    2.355 {fastNlMeansDenoising}
+        1    0.042    0.042    0.060    0.060 D:\do_projects\Github-K0\CrestalClear\binarization.py:4(binarizeDocumentImage)
+        1    0.007    0.007    0.044    0.044 D:\do_projects\Github-K0\CrestalClear\correctionIllumination.py:4(normalizeDocumentIllumination)
+        1    0.002    0.002    0.040    0.040 D:\do_projects\Github-K0\CrestalClear\geometricNormalization.py:4(deskewDocumentImage)
+        2    0.017    0.008    0.017    0.008 {cvtColor}
+        2    0.013    0.006    0.013    0.006 {boxFilter}
+        2    0.011    0.005    0.011    0.005 {GaussianBlur}
+        2    0.010    0.005    0.010    0.005 {resize}
+        4    0.008    0.002    0.008    0.002 {method 'astype' of 'numpy.ndarray' objects}
+        2    0.007    0.004    0.007    0.004 {morphologyEx}
+        1    0.006    0.006    0.006    0.006 {normalize}
+        1    0.005    0.005    0.005    0.005 {findContours}
+        1    0.004    0.004    0.004    0.004 {method 'apply' of 'cv2.CLAHE' objects}
+        1    0.004    0.004    0.004    0.004 {threshold}
+        9    0.004    0.000    0.004    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+        4    0.000    0.000    0.004    0.001 C:\Users\Lenovo\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\_core\fromnumeric.py:2338(sum)
+        4    0.000    0.000    0.004    0.001 C:\Users\Lenovo\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\_core\fromnumeric.py:69(_wrapreduction)
+        2    0.002    0.001    0.002    0.001 {getStructuringElement}
+
+
