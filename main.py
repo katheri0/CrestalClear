@@ -87,7 +87,7 @@ def uploadImages():
                 file_bytes_list.append(b)
 
         processedImages: list[np.ndarray] = []
-        with concurrent.futures.ProcessPoolExecutor() as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             results = list(executor.map(decode_and_process, file_bytes_list))
 
         processedImages = [img for img in results if img is not None]
